@@ -9,7 +9,15 @@ ls, mkdir, nano, cd
 use the format:
 `!<command> <params>`
 
-## Errors/Bugs:
+## Fixed Errors/Bugs:
 
-cd not working, returns `bash: cd: command not found` but should return an error or should work...
-using `../` user can write files outside of their alloted directory
+[X] cd not working, returns `bash: cd: command not found` but should return an error or should work...
+
+[X] using `../` user can write files outside of their alloted directory
+
+
+## Current Errors/Bugs/Pending Features
+
+[o] `!upload`, `!view`, `grep`
+
+[o] Set particular channels only in which the bot can read messages

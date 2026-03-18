@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from src.helpers.bot_instance import tree, bot
 from src.executor import handle_command, pending_nano, finish_nano
 from src.formatter import format_output
+from src.filesystem import get_user_dir
 
 load_dotenv()
 
@@ -34,8 +35,9 @@ async def on_message(message):
             filepath = pending_nano[user_id]
             finish_nano(filepath, message.content.strip().strip("```"))
             del pending_nano[user_id]
-            filename = os.path.basename(filepath)
-            await message.channel.send(f"Saved `/home/{username}/{filename}`.")
+            relative = os.path.relpath(filepath, get_user_dir(user_id))
+            path = f"{relative}"
+            await message.channel.send(f"Saved `/home/{username}/{path}`.")
         return
 
     if not message.content.startswith("!"):

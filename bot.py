@@ -4,9 +4,10 @@ import sys
 from dotenv import load_dotenv
 
 from src.helpers.bot_instance import tree, bot
-from src.executor import handle_command, pending_nano, finish_nano
+from src.executor import handle_command
+from src.helpers.executor.nano import pending_nano, finish_nano
 from src.formatter import format_output
-from src.filesystem import get_user_dir
+from src.filesystem import get_user_dir, load_cwds
 
 load_dotenv()
 
@@ -15,6 +16,7 @@ load_dotenv()
 @bot.event
 async def on_ready():
     await tree.sync()
+    load_cwds()
     print(f"Logged in as {bot.user}")
 
 
@@ -53,7 +55,7 @@ async def on_message(message):
     await message.channel.send(output)
 
 
-token: str = str(os.getenv("DISCORD_TOKEN")) #Zed keeps showing me warnings so had to do this buffonery
+token: str = str(os.getenv("DISCORD_TOKEN")) #Zed keeps showing me warnings so had to do this buffoonery
 if token == "None":
     sys.exit("DISCORD_TOKEN not set")
 bot.run(token)

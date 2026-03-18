@@ -9,15 +9,17 @@ ls, mkdir, nano, cd
 use the format:
 `!<command> <params>`
 
-## Fixed Errors/Bugs:
+## Changelong since previous commit
 
-[X] cd not working, returns `bash: cd: command not found` but should return an error or should work...
+- Added `!grep` command
+- `users_current_dir` gets stored in a json located at `data/cwds.json` to persist if bot crashes at some point of time. The json is updated everytime a user calls a cd command which succeeds
+- Refactored code to multiple files per command
 
-[X] using `../` user can write files outside of their alloted directory
+(fixed spelling mistake :P)
 
 
 ## Current Errors/Bugs/Pending Features
 
-[o] `!upload`, `!view`, `grep`
+[o] `!upload`, `!view`
 
 [o] Set particular channels only in which the bot can read messages

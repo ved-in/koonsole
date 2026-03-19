@@ -1,7 +1,7 @@
 from src.filesystem import get_cwd, get_user_dir
 from src.helpers.executor.run_subprocess import run_subprocess
 
-async def handle_grep(parts: list, user_id: str) -> str:
+async def handle_grep(parts: list, user_id: str, username:str) -> str:
     if len(parts) < 2:
         return "grep: missing pattern"
     
@@ -13,7 +13,7 @@ async def handle_grep(parts: list, user_id: str) -> str:
     print(f"DEBUG grep parts: {parts}")
     
     user_dir = get_user_dir(user_id)
-    result = await run_subprocess(parts, user_id, skip_first_non_flag=True)
+    result = await run_subprocess(parts, user_id, username, skip_first_non_flag=True)
     result = result.replace(user_dir, "")
     
     return result

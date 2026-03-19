@@ -1,7 +1,7 @@
 def format_output(cmd: str, username: str, result: str) -> str:
     safe_user = username.replace(" ", "").lower()[:20]
 
-    output_body = result if result else "(no output)"
+    output_body = result if result else ""
 
     return (
         "```bash\n"

@@ -57,9 +57,13 @@ async def on_message(message):
             return
     
         result = await handle_command(raw, user_id, username, message)
-        output = format_output(raw, username, result)
-    
-        await message.channel.send(output)
+        if result[0] == "Send text":
+            output = format_output(raw, username, result[1])
+            await message.channel.send(output)
+        elif result[0] == "Send attachment(s)":
+            files = result[1]
+            print("DEBUG: sending files")
+            await message.channel.send(content="", files=files)
 
 
 token: str = str(os.getenv("DISCORD_TOKEN")) #Zed keeps showing me warnings so had to do this buffoonery

@@ -11,9 +11,10 @@ use the format:
 
 ## Changelong since previous commit
 
-- Now you can initialize and uninitialize channels where bot will process commands
+- `!cat` command added. Just had to enter it in `PASSTHROUGH`
+- `!upload` command added
 
 
 ## Current Errors/Bugs/Pending Features
 
-[o] `!cat`, `!upload`, `!view`
+[o] `!view`

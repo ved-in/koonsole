@@ -8,11 +8,12 @@ async def initialize_channel(interaction: discord.Interaction):
     channel_id = str(interaction.channel_id)
     if channel_id in channel_filter.channels_list:
         await interaction.response.send_message(
-            "Channel already initialized."
+            """Channel already initialized."""
         )
     else:
         channel_filter.channels_list.append(channel_id)
         channel_filter.save_channel_list()
         await interaction.response.send_message(
-            "Channel Initialized.\nAny messages sent here in the format `!<command> <params>` will be treated as a command"
+            """Channel Initialized.
+Any messages sent here in the format `!<command> <params>` will be treated as a command"""
         )

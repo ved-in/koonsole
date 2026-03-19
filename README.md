@@ -11,15 +11,9 @@ use the format:
 
 ## Changelong since previous commit
 
-- Added `!grep` command
-- `users_current_dir` gets stored in a json located at `data/cwds.json` to persist if bot crashes at some point of time. The json is updated everytime a user calls a cd command which succeeds
-- Refactored code to multiple files per command
-
-(fixed spelling mistake :P)
+- Now you can initialize and uninitialize channels where bot will process commands
 
 
 ## Current Errors/Bugs/Pending Features
 
-[o] `!upload`, `!view`
-
-[o] Set particular channels only in which the bot can read messages
+[o] `!cat`, `!upload`, `!view`

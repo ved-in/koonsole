@@ -4,16 +4,6 @@ A discord terminal app which can be used to run commands
 current commands:
 cd, ls, mkdir, nano, grep, cat, upload, get
 
-## Usage
-
-use the format:
-`!<command> <params>`
-
-## Changelong since previous commit
-
-- Multitude of commands added. They only really needed to be added in `PASSTHROUGH` list but some of them may leak data about the machine on which the bot is running for. Checks were added in the `run_subprocesses` function to replace that output with the user sandboxed output.
-- Currently supported commands:
-
 ```bash
 Available commands
 
@@ -78,6 +68,20 @@ Available commands
 Tip: use !help for this message
 ```
 
+## Usage
+
+use the format:
+`!<command> <params>`
+
+## Changelong since previous commit
+
+- Imported helper executor functions as `execs.<func_name>` to prevent warnings in IDE
+- `nano` now sends the file contents as a file both while editing and after u send content
+
 ## Current Errors/Bugs/Pending Features
 
-[o] No piping commands support. Honestly no one would really need them in the bot but would see what I can do
+[o] No piping commands support. Honestly no one would really need them in the bot but would see what I can do. Piping does seem to be necessary. `!echo "note content > note.txt` does not work..
+
+[o] `!nano /home/<username>/my_project/note.txt` does not work because nano would consider it to be relative path which does not exist.
+
+[o] Make `nano` accept entire edited file as content instead of triple backticks ORR make it optional through a flag?

@@ -1,7 +1,9 @@
 import os
 import sys
+import discord
 
 from dotenv import load_dotenv
+import io
 
 from src.helpers.bot_instance import tree, bot
 from src.executor import handle_command
@@ -44,9 +46,14 @@ async def on_message(message):
                 filepath = pending_nano[user_id]
                 finish_nano(filepath, message.content.strip().strip("```"))
                 del pending_nano[user_id]
+                content = message.content.strip().strip("`")
+                filename = os.path.basename(filepath)
+                file_obj = discord.File(io.BytesIO(content.encode()), filename=filename)
                 relative = os.path.relpath(filepath, get_user_dir(user_id))
-                path = f"{relative}"
-                await message.channel.send(f"Saved `/home/{username}/{path}`.")
+                await message.channel.send(
+                    f"Here is your file `/home/{username}/{relative}`:",
+                    file=file_obj
+                )
             return
     
         if not message.content.startswith("!"):
@@ -61,9 +68,13 @@ async def on_message(message):
             output = format_output(raw, username, result[1])
             await message.channel.send(output)
         elif result[0] == "Send attachment(s)":
-            files = result[1]
-            print("DEBUG: sending files")
-            await message.channel.send(content="", files=files)
+            await message.channel.send(content="", files=result[1])
+        elif result[0] == "nano-file":
+            _, text, file_obj = result
+            await message.channel.send(content=format_output(raw, username, text), file=file_obj)
+        elif result[0] == "nano-text":
+            _, text, _ = result
+            await message.channel.send(format_output(raw, username, text))
 
 
 token: str = str(os.getenv("DISCORD_TOKEN")) #Zed keeps showing me warnings so had to do this buffoonery

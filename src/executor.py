@@ -2,7 +2,7 @@ import shlex
 
 from src.filesystem import get_user_dir
 
-from src.helpers.executor import *
+import src.helpers.executor as execs
 
 
 PASSTHROUGH = [
@@ -92,16 +92,16 @@ async def handle_command(raw: str, user_id: str, username: str, message) -> list
     if cmd == "help":
         return ["Send text", HELP_TEXT]
     elif cmd == "nano":
-        return ["Send text", handle_nano(parts, user_dir, user_id)]
+        return execs.handle_nano(parts, user_dir, user_id)
     elif cmd == "cd":
-        return ["Send text", handle_cd(parts, user_id)]
+        return ["Send text", execs.handle_cd(parts, user_id)]
     elif cmd == "grep":
-        return ["Send text", await handle_grep(parts, user_id, username)]
+        return ["Send text", await execs.handle_grep(parts, user_id, username)]
     elif cmd == "upload":
-        return ["Send text", await handle_upload(message, user_id)]
+        return ["Send text", await execs.handle_upload(message, user_id)]
     elif cmd == "get":
-        return ["Send attachment(s)", await handle_get(user_id, parts[1:])]
+        return ["Send attachment(s)", await execs.handle_get(user_id, parts[1:])]
     elif cmd in PASSTHROUGH:
-        return ["Send text", await run_subprocess(parts, user_id, username)]
+        return ["Send text", await execs.run_subprocess(parts, user_id, username)]
 
     return ["Send text", f"bash: {cmd}: command not found"]
